@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact · MediAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow on-dark reveal in">Contact</span>
+    <h1 class="reveal in">Let's start a conversation.</h1>
+    <p class="reveal in">Whether you've spotted a bug, want to extend the platform, or are interested in adapting the methodology to another domain — we'd be glad to hear from you.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5 reveal">
+        <span class="eyebrow">Reach Us</span>
+        <h2 class="section-title">Channels.</h2>
+        <p class="text-muted mt-3">For technical issues, feature requests, dataset contributions, or academic collaboration enquiries, use whichever channel suits you. All correspondence is treated as informal — no contact information is logged or shared.</p>
+
+        <div class="mt-5">
+          <div class="d-flex gap-3 mb-4">
+            <div class="icon-square flex-shrink-0"><i class="bi bi-envelope"></i></div>
+            <div><div class="fw-semibold">Email</div><div class="text-muted small">contact@mediai.demo</div></div>
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <div class="icon-square flex-shrink-0"><i class="bi bi-telephone"></i></div>
+            <div><div class="fw-semibold">Telephone</div><div class="text-muted small">+91 90000 00000</div><div class="text-muted small">Mon — Fri · 09:00 to 18:00 IST</div></div>
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <div class="icon-square flex-shrink-0"><i class="bi bi-geo-alt"></i></div>
+            <div><div class="fw-semibold">Address</div><div class="text-muted small">Department of Computer Science &amp; Engineering<br>[Your Institute Name]<br>[City, State – PIN]</div></div>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="icon-square flex-shrink-0"><i class="bi bi-github"></i></div>
+            <div><div class="fw-semibold">Repository</div><div class="text-muted small">github.com/your-org/mediai · pull requests welcome</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7 reveal reveal-delay-1">
+        <div class="card-clean">
+          <span class="eyebrow">Form</span>
+          <h3 class="mt-1">Send a message.</h3>
+          <p class="text-muted small mb-4">Your message will reach the project maintainers within one working day.</p>
+          <form id="contactForm">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Full name</label><input class="form-control" name="name" required></div>
+              <div class="col-md-6"><label class="form-label">Email address</label><input class="form-control" type="email" name="email" required></div>
+              <div class="col-md-6"><label class="form-label">Organisation (optional)</label><input class="form-control" name="org"></div>
+              <div class="col-md-6"><label class="form-label">Topic</label>
+                <select class="form-select" name="topic">
+                  <option>General enquiry</option><option>Bug report</option><option>Feature request</option>
+                  <option>Academic collaboration</option><option>Dataset contribution</option><option>Press</option>
+                </select></div>
+              <div class="col-12"><label class="form-label">Subject</label><input class="form-control" name="subject" required></div>
+              <div class="col-12"><label class="form-label">Message</label><textarea class="form-control" name="message" rows="6" required></textarea></div>
+              <div class="col-12 d-flex justify-content-between align-items-center mt-2">
+                <span class="text-muted small"><i class="bi bi-shield-check me-1"></i>No tracking, no third parties.</span>
+                <button class="btn btn-accent">Send Message <i class="bi bi-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+          </form>
+          <div id="contactResult" class="result-card mt-4 d-none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm" style="background:var(--line-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4 reveal"><div class="d-flex gap-3"><div class="icon-square"><i class="bi bi-question-circle"></i></div><div><h6 class="mb-1">FAQs</h6><p class="text-muted small mb-0">Common questions about model methodology, datasets, and intended use cases.</p></div></div></div>
+      <div class="col-md-4 reveal reveal-delay-1"><div class="d-flex gap-3"><div class="icon-square"><i class="bi bi-shield-shaded"></i></div><div><h6 class="mb-1">Privacy Policy</h6><p class="text-muted small mb-0">We do not store, log, or share any information you submit through any service.</p></div></div></div>
+      <div class="col-md-4 reveal reveal-delay-2"><div class="d-flex gap-3"><div class="icon-square"><i class="bi bi-journal-code"></i></div><div><h6 class="mb-1">Documentation</h6><p class="text-muted small mb-0">Notebook walkthroughs, API reference, and architecture notes accompany the codebase.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const r = document.getElementById("contactResult");
+  r.classList.remove("d-none");
+  r.innerHTML = `<div class="d-flex gap-3 align-items-start">
+    <i class="bi bi-check-circle" style="font-size:1.5rem;color:var(--accent)"></i>
+    <div><strong>Message received.</strong><div class="small text-muted mt-1">This form is a demonstration — once the backend mailer is wired, your message will be delivered to the project team.</div></div></div>`;
+  e.target.reset();
+});
+</script>
+</body>
+</html>

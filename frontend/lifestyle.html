@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lifestyle Planner · MediAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .planner-shell { display:grid; grid-template-columns: minmax(320px, 420px) 1fr; gap: 2rem; align-items:start; }
+    .planner-sidebar { position: sticky; top: 92px; }
+    .form-section { border-top:1px solid var(--line-soft); padding-top:1.25rem; margin-top:1.25rem; }
+    .mini-grid { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; }
+    .metric { background:#fff; border:1px solid var(--line); border-radius:12px; padding:1rem; }
+    .metric .value { font-size:1.65rem; font-weight:700; letter-spacing:-.03em; line-height:1.1; }
+    .metric .label { color:var(--muted); font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; }
+    .plan-tabs { display:flex; gap:.5rem; flex-wrap:wrap; margin:1rem 0 1.25rem; }
+    .plan-tab { border:1px solid var(--line); background:#fff; border-radius:999px; padding:.48rem .85rem; font-size:.84rem; color:var(--ink-mute); }
+    .plan-tab.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .plan-pane { display:none; }
+    .plan-pane.active { display:block; }
+    .day-grid { display:grid; grid-template-columns: repeat(7, minmax(120px, 1fr)); gap:.75rem; overflow-x:auto; padding-bottom:.25rem; }
+    .day-card { min-width:120px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:1rem; }
+    .day-card h6 { margin:0 0 .45rem; }
+    .tiny-list { padding-left:1rem; margin: .5rem 0 0; color:var(--ink-mute); font-size:.82rem; line-height:1.45; }
+    .meal-row { display:grid; grid-template-columns: 120px 90px 1fr; gap:1rem; align-items:start; padding:1rem 0; border-bottom:1px solid var(--line-soft); }
+    .meal-row:last-child { border-bottom:0; }
+    .month-grid { display:grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap:1rem; }
+    .pill-soft { display:inline-flex; align-items:center; gap:.35rem; padding:.32rem .65rem; border-radius:999px; background:var(--line-soft); color:var(--ink-mute); font-size:.78rem; }
+    @media (max-width: 992px) {
+      .planner-shell { grid-template-columns:1fr; }
+      .planner-sidebar { position:static; }
+      .mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .month-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow on-dark reveal in">Service 05 · Lifestyle Planning Engine</span>
+    <h1 class="reveal in">Lifestyle Planner</h1>
+    <p class="reveal in">Build a practical month of eating, training, recovery, hydration, steps, and habits from a richer profile, without pretending life is perfectly predictable.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="planner-shell">
+      <aside class="planner-sidebar reveal">
+        <div class="card-clean">
+          <span class="eyebrow">Intake</span>
+          <h3 class="mt-1">Profile and constraints.</h3>
+          <p class="text-muted small mb-4">More context gives the planner room to be useful, but every field stays lightweight.</p>
+
+          <form id="lifeForm">
+            <div class="row g-3">
+              <div class="col-6"><label class="form-label">Age</label><input class="form-control" type="number" name="age" value="25" min="13" max="90" required></div>
+              <div class="col-6"><label class="form-label">Sex</label><select class="form-select" name="sex"><option value="M">Male</option><option value="F">Female</option></select></div>
+              <div class="col-6"><label class="form-label">Weight (kg)</label><input class="form-control" type="number" step="0.1" name="weight" value="70" min="30" max="220" required></div>
+              <div class="col-6"><label class="form-label">Height (cm)</label><input class="form-control" type="number" step="0.1" name="height" value="170" min="120" max="220" required></div>
+            </div>
+
+            <div class="form-section">
+              <label class="form-label">Goal</label>
+              <select class="form-select" name="goal">
+                <option value="lose_fat">Lose fat</option>
+                <option value="maintain">Maintain energy</option>
+                <option value="gain_muscle">Gain muscle</option>
+                <option value="recompose" selected>Body recomposition</option>
+                <option value="improve_fitness">Improve fitness</option>
+              </select>
+              <div class="row g-3 mt-1">
+                <div class="col-6"><label class="form-label">Activity</label>
+                  <select class="form-select" name="activity">
+                    <option value="sedentary">Sedentary</option>
+                    <option value="light" selected>Light</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="active">Active</option>
+                    <option value="very_active">Very active</option>
+                  </select></div>
+                <div class="col-6"><label class="form-label">Work Style</label>
+                  <select class="form-select" name="work_style">
+                    <option value="desk" selected>Desk</option>
+                    <option value="mixed">Mixed</option>
+                    <option value="standing">Standing</option>
+                    <option value="physical">Physical</option>
+                  </select></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="row g-3">
+                <div class="col-6"><label class="form-label">Workout Days</label><input class="form-control" type="number" name="workout_days" value="4" min="2" max="6"></div>
+                <div class="col-6"><label class="form-label">Minutes/session</label><input class="form-control" type="number" name="available_minutes" value="40" min="20" max="90"></div>
+                <div class="col-6"><label class="form-label">Experience</label>
+                  <select class="form-select" name="experience"><option value="beginner">Beginner</option><option value="intermediate" selected>Intermediate</option><option value="advanced">Advanced</option></select></div>
+                <div class="col-6"><label class="form-label">Equipment</label>
+                  <select class="form-select" name="equipment"><option value="none">None</option><option value="bands">Bands</option><option value="dumbbells" selected>Dumbbells</option><option value="gym">Gym</option></select></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="row g-3">
+                <div class="col-6"><label class="form-label">Diet Type</label>
+                  <select class="form-select" name="diet_type">
+                    <option value="balanced" selected>Balanced</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="high_protein">High protein</option>
+                    <option value="diabetes_friendly">Diabetes-friendly</option>
+                    <option value="heart_friendly">Heart-friendly</option>
+                  </select></div>
+                <div class="col-6"><label class="form-label">Meals/day</label><input class="form-control" type="number" name="meals_per_day" value="4" min="3" max="5"></div>
+                <div class="col-6"><label class="form-label">Budget</label>
+                  <select class="form-select" name="budget"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">Flexible</option></select></div>
+                <div class="col-6"><label class="form-label">Cuisine</label><input class="form-control" name="cuisine" value="Indian / flexible" maxlength="40"></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="row g-3">
+                <div class="col-4"><label class="form-label">Sleep</label><input class="form-control" type="number" step="0.1" name="sleep_hours" value="7" min="4" max="10"></div>
+                <div class="col-4"><label class="form-label">Stress</label>
+                  <select class="form-select" name="stress_level"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></div>
+                <div class="col-4"><label class="form-label">Steps now</label><input class="form-control" type="number" name="steps_now" value="5500" min="500" max="30000"></div>
+                <div class="col-12"><label class="form-label">Conditions or medication notes</label><input class="form-control" name="conditions" placeholder="Optional"></div>
+                <div class="col-12"><label class="form-label">Injury or movement limits</label><input class="form-control" name="injury" placeholder="Optional"></div>
+              </div>
+            </div>
+
+            <button class="btn btn-accent mt-4 w-100">Generate Lifestyle Plan <i class="bi bi-arrow-right ms-1"></i></button>
+          </form>
+        </div>
+      </aside>
+
+      <main>
+        <div id="emptyState" class="card-clean reveal">
+          <div class="d-flex align-items-center gap-3">
+            <div class="icon-square"><i class="bi bi-calendar2-heart"></i></div>
+            <div>
+              <h4 class="mb-1">Your plan will appear here.</h4>
+              <p class="text-muted mb-0">Expect calorie and macro targets, meals, workouts, a monthly schedule, habit loops, and conservative safety notes.</p>
+            </div>
+          </div>
+        </div>
+        <div id="result" class="d-none"></div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--line-soft)">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4 reveal"><h5>Guideline Guardrails</h5><p class="text-muted small">Training volume is kept near CDC/WHO adult activity guidance, then adjusted for experience, available time, sleep, and stress.</p></div>
+      <div class="col-md-4 reveal reveal-delay-1"><h5>Model + Rules</h5><p class="text-muted small">A regression model estimates calories and protein; deterministic rules build the schedule, meals, habits, and safety checks.</p></div>
+      <div class="col-md-4 reveal reveal-delay-2"><h5>Realistic Progress</h5><p class="text-muted small">Plans use moderate changes, weekly review points, and small adjustments instead of extreme challenges or perfect compliance assumptions.</p></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
+<script>
+document.getElementById("lifeForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const out = document.getElementById("result");
+  document.getElementById("emptyState").classList.add("d-none");
+  out.classList.remove("d-none");
+  out.innerHTML = `<div class="result-card"><div class="d-flex align-items-center gap-2 text-muted"><div class="spinner-border spinner-border-sm" style="color:var(--accent)"></div><span>Building your month...</span></div></div>`;
+  const body = Object.fromEntries(new FormData(e.target).entries());
+  try {
+    const r = await postJSON("/api/lifestyle/predict", body);
+    if (r.error) { out.innerHTML = `<div class="result-card error">${r.error}</div>`; return; }
+    renderPlanner(out, r);
+  } catch (err) {
+    out.innerHTML = `<div class="result-card error">Error: ${err.message}</div>`;
+  }
+});
+
+function renderPlanner(out, r) {
+  out.innerHTML = `
+    <div class="card-clean mb-3">
+      <div class="d-flex flex-wrap justify-content-between gap-3 align-items-start">
+        <div>
+          <span class="eyebrow">Plan Summary</span>
+          <h3 class="mb-1">${r.summary.goal}</h3>
+          <p class="text-muted mb-0">${r.summary.focus.primary}. ${r.body.estimated_weekly_change}.</p>
+        </div>
+        <span class="pill-soft"><i class="bi bi-cpu"></i>${r.summary.model} · MAE ${r.summary.model_mae_calories} kcal</span>
+      </div>
+      <div class="mini-grid mt-4">
+        ${metric("Calories", r.body.calories_per_day, "kcal/day")}
+        ${metric("Protein", r.nutrition.macros.protein_g, "g/day")}
+        ${metric("BMI", r.body.bmi, r.body.bmi_category)}
+        ${metric("Readiness", r.summary.readiness_score, "/100")}
+      </div>
+      ${r.safety_flags.length ? `<div class="result-card error mt-3">${r.safety_flags.map(x => `<div class="small mb-1"><i class="bi bi-exclamation-triangle me-1"></i>${x}</div>`).join("")}</div>` : ""}
+    </div>
+
+    <div class="plan-tabs">
+      ${tab("nutrition", "Nutrition", true)}
+      ${tab("training", "Training")}
+      ${tab("month", "Month")}
+      ${tab("habits", "Habits")}
+      ${tab("sources", "Sources")}
+    </div>
+
+    <div id="pane-nutrition" class="plan-pane active">${nutritionPane(r)}</div>
+    <div id="pane-training" class="plan-pane">${trainingPane(r)}</div>
+    <div id="pane-month" class="plan-pane">${monthPane(r)}</div>
+    <div id="pane-habits" class="plan-pane">${habitsPane(r)}</div>
+    <div id="pane-sources" class="plan-pane">${sourcesPane(r)}</div>
+  `;
+  document.querySelectorAll(".plan-tab").forEach(btn => btn.onclick = () => {
+    document.querySelectorAll(".plan-tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".plan-pane").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(`pane-${btn.dataset.pane}`).classList.add("active");
+  });
+}
+
+function metric(label, value, unit) {
+  return `<div class="metric"><div class="label">${label}</div><div class="value">${value}</div><div class="text-muted small">${unit}</div></div>`;
+}
+function tab(id, label, active=false) {
+  return `<button class="plan-tab ${active ? "active" : ""}" data-pane="${id}" type="button">${label}</button>`;
+}
+function nutritionPane(r) {
+  const m = r.nutrition.macros;
+  return `<div class="card-clean mb-3">
+    <div class="d-flex gap-3 align-items-center mb-3"><div class="icon-square"><i class="bi bi-basket"></i></div><div><h5 class="mb-0">Daily Nutrition Targets</h5><div class="text-muted small">${r.nutrition.water_l} L water · ${m.fiber_g} g fiber · ${m.split.protein_pct}/${m.split.carbs_pct}/${m.split.fat_pct}% macro split</div></div></div>
+    <div class="mini-grid">${metric("Protein", m.protein_g, "g")} ${metric("Carbs", m.carbs_g, "g")} ${metric("Fat", m.fat_g, "g")} ${metric("Fiber", m.fiber_g, "g")}</div>
+  </div>
+  <div class="card-clean mb-3">
+    <h5>Meal Timing</h5>
+    ${r.nutrition.meal_plan.map(meal => `<div class="meal-row"><strong>${meal.name}</strong><span class="pill-soft">${meal.target_kcal} kcal</span><div><div>${meal.idea}</div><div class="text-muted small">${meal.plate_rule}</div></div></div>`).join("")}
+  </div>
+  <div class="card-clean">${grocery(r.nutrition.grocery_list)}${listBlock("Notes", r.nutrition.notes)}</div>`;
+}
+function grocery(g) {
+  return `<h5>Grocery Map</h5><div class="row g-3">${Object.entries(g).map(([k,v]) => `<div class="col-md-6"><div class="service-num">${k}</div><div class="text-muted small">${v.join(", ")}</div></div>`).join("")}</div>`;
+}
+function trainingPane(r) {
+  return `<div class="card-clean mb-3">
+    <div class="d-flex gap-3 align-items-center mb-3"><div class="icon-square"><i class="bi bi-person-arms-up"></i></div><div><h5 class="mb-0">Weekly Training Schedule</h5><div class="text-muted small">Step target: ${r.training.step_target.toLocaleString()} / day</div></div></div>
+    <div class="day-grid">${r.training.weekly_schedule.map(day => `<div class="day-card"><h6>${day.day}</h6><div class="service-num">${day.title}</div><ul class="tiny-list">${day.items.slice(0,4).map(x => `<li>${x}</li>`).join("")}</ul></div>`).join("")}</div>
+  </div>
+  <div class="card-clean">${listBlock("Progression Rules", r.training.progression)}</div>`;
+}
+function monthPane(r) {
+  return `<div class="month-grid">${r.monthly_plan.map(w => `<div class="card-clean"><span class="service-num">WEEK ${w.week} · ${w.dates}</span><h5>${w.theme}</h5><p class="text-muted small">${w.focus}</p><div class="pill-soft"><i class="bi bi-flag"></i>${w.checkpoint}</div></div>`).join("")}</div>`;
+}
+function habitsPane(r) {
+  return `<div class="row g-3"><div class="col-lg-6"><div class="card-clean h-100">${listBlock("Habit Stack", r.habits)}</div></div><div class="col-lg-6"><div class="card-clean h-100">${routine(r.daily_routine)}</div></div></div>`;
+}
+function routine(items) {
+  return `<h5>Daily Routine</h5>${items.map(x => `<div class="meal-row"><strong>${x.time}</strong><span></span><div class="text-muted small">${x.task}</div></div>`).join("")}`;
+}
+function sourcesPane(r) {
+  return `<div class="card-clean">${listBlock("Planning References", r.references)}<p class="text-muted small mt-3 mb-0">This is not a medical device. Use the output as a planning draft and adjust based on real trend data, symptoms, and professional guidance when needed.</p></div>`;
+}
+function listBlock(title, items) {
+  return `<h5>${title}</h5><ul class="list-clean">${items.map(x => `<li><i class="bi bi-check2"></i><span>${x}</span></li>`).join("")}</ul>`;
+}
+</script>
+</body>
+</html>

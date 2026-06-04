@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Services · MediAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow on-dark reveal in">Capabilities</span>
+    <h1 class="reveal in">Five focused services. One unified platform.</h1>
+    <p class="reveal in">Each service is a self-contained research artefact with documented methodology, an isolated model artefact, and a dedicated interface. Choose the question you want to ask.</p>
+  </div>
+</section>
+
+<!-- Service overview grid -->
+<section class="section">
+  <div class="container">
+    <div class="row g-4" id="services"></div>
+  </div>
+</section>
+
+<!-- Comparative table -->
+<section class="section" style="background:var(--line-soft)">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-8 reveal">
+        <span class="eyebrow">At A Glance</span>
+        <h2 class="section-title mx-auto">Methodology comparison</h2>
+        <p class="section-sub mx-auto mt-3">A summary of the algorithmic choices behind each service.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="card-clean p-0" style="overflow:hidden">
+        <table class="table mb-0" style="font-size:.92rem">
+          <thead style="background:var(--ink);color:#f8fafc">
+            <tr>
+              <th class="ps-4 py-3">Service</th>
+              <th class="py-3">Task</th>
+              <th class="py-3">Algorithm</th>
+              <th class="py-3">Dataset</th>
+              <th class="pe-4 py-3">Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="ps-4 py-3 fw-semibold">Blood Analyser</td><td>Multi-class classification</td><td>Random Forest</td><td>CBC values</td><td class="pe-4">Class + probability + diet</td></tr>
+            <tr><td class="ps-4 py-3 fw-semibold">Symptom Checker</td><td>Multi-class top-K</td><td>Random Forest</td><td>Symptom-disease mapping</td><td class="pe-4">Top-3 conditions + plan</td></tr>
+            <tr><td class="ps-4 py-3 fw-semibold">Image Diagnosis</td><td>Image classification</td><td>CNN + MobileNetV2</td><td>Chest X-ray, HAM10000</td><td class="pe-4">Class + softmax</td></tr>
+            <tr><td class="ps-4 py-3 fw-semibold">Mental Health Chat</td><td>Question answering</td><td>RAG · FAISS · flan-t5</td><td>NIMH / WHO references</td><td class="pe-4">Grounded answer + sources</td></tr>
+            <tr><td class="ps-4 py-3 fw-semibold">Lifestyle Planner</td><td>Regression + planning</td><td>Tuned Gradient Boosting</td><td>Guideline-based lifestyle cohort</td><td class="pe-4">Calories, macros, workouts, meals, month plan</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust pillars -->
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-7 reveal"><span class="eyebrow">Behind The Platform</span>
+        <h2 class="section-title mx-auto">Built on principles, not promises.</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal"><div class="card-clean h-100">
+        <div class="icon-square mb-3"><i class="bi bi-diagram-3"></i></div>
+        <h5>Modular architecture</h5>
+        <p class="text-muted small mb-0">Each service is independently deployable, independently testable, and independently upgradable. A failure in one cannot cascade to the others.</p>
+      </div></div>
+      <div class="col-md-4 reveal reveal-delay-1"><div class="card-clean h-100">
+        <div class="icon-square mb-3"><i class="bi bi-graph-up"></i></div>
+        <h5>Quantitative grounding</h5>
+        <p class="text-muted small mb-0">Models are selected only after benchmarking five or more candidates against a held-out test set with cross-validation.</p>
+      </div></div>
+      <div class="col-md-4 reveal reveal-delay-2"><div class="card-clean h-100">
+        <div class="icon-square mb-3"><i class="bi bi-file-earmark-text"></i></div>
+        <h5>Documentation first</h5>
+        <p class="text-muted small mb-0">Every service ships with a Jupyter notebook documenting the full exploratory analysis, training pipeline, and evaluation.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
+<script>
+const SERVICES = [
+  { n:"01", i:"bi-droplet",          t:"Blood Report Analyser",  d:"Predict probable haematological categories from CBC values with probability calibration and aligned dietary suggestions.", h:"/blood.html",     tag:"Random Forest" },
+  { n:"02", i:"bi-clipboard2-pulse", t:"Symptom Checker",        d:"Convert your symptom selection into a ranked differential of three most probable conditions with management recommendations.", h:"/symptom.html",   tag:"Multi-class RF" },
+  { n:"03", i:"bi-image",            t:"Image Diagnosis",        d:"Submit a chest X-ray or skin lesion image — a fine-tuned CNN returns the predicted class with a full probability distribution.", h:"/image.html",     tag:"CNN + Transfer" },
+  { n:"04", i:"bi-chat-square-text", t:"Mental Health Chat",     d:"Ask informational mental-health questions; receive grounded answers cited to vetted NIMH and WHO references.", h:"/chat.html",      tag:"RAG · FAISS" },
+  { n:"05", i:"bi-activity",         t:"Lifestyle Planner",      d:"Build a monthly plan with calories, macros, meals, training, steps, hydration, habits, and conservative safety flags from a richer lifestyle profile.", h:"/lifestyle.html", tag:"Planning Engine" },
+];
+document.getElementById("services").innerHTML = SERVICES.map((s,i) => `
+  <div class="col-md-6 col-lg-4 reveal reveal-delay-${i%3}">
+    <a href="${s.h}" class="text-decoration-none">
+      <div class="card-clean h-100 d-flex flex-column">
+        <div class="service-num mb-2">${s.n} · ${s.tag.toUpperCase()}</div>
+        <div class="icon-square mb-3"><i class="bi ${s.i}"></i></div>
+        <h4 class="text-ink">${s.t}</h4>
+        <p class="text-muted small flex-grow-1">${s.d}</p>
+        <span class="text-accent small mt-2">Open service <i class="bi bi-arrow-right ms-1"></i></span>
+      </div>
+    </a>
+  </div>`).join("");
+</script>
+</body>
+</html>

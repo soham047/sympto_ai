@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mental Health Chat · MediAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow on-dark reveal in">Service 04 · Retrieval-Augmented Generation</span>
+    <h1 class="reveal in">Mental Health Support</h1>
+    <p class="reveal in">A grounded conversational interface. Every response is retrieved from a curated knowledge base of NIMH and WHO references and accompanied by source citations. Acute distress is intercepted by a deterministic safety layer.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-8 reveal">
+        <div class="chat-shell">
+          <div class="chat-header">
+            <div class="icon-square dark"><i class="bi bi-chat-square-text"></i></div>
+            <div>
+              <div class="fw-semibold">Wellness Assistant</div>
+              <div class="text-muted small">Grounded in vetted public references</div>
+            </div>
+            <span class="ms-auto small text-muted"><span class="brand-dot" style="background:var(--accent)"></span>Online</span>
+          </div>
+          <div class="chat-log" id="log">
+            <div class="msg bot">Hello. I can answer informational questions about anxiety, depression, sleep, stress, mindfulness, and coping skills, with citations to the underlying reference passages. If you indicate acute distress, I will immediately direct you to professional helplines.</div>
+          </div>
+          <form id="chatForm" class="p-3 border-top" style="border-color:var(--line)!important">
+            <div class="input-group">
+              <input id="msg" class="form-control" placeholder="Ask a question…" autocomplete="off" required>
+              <button class="btn btn-accent"><i class="bi bi-send"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card-clean reveal" style="background:#1e293b;border-color:#334155;color:#cbd5e1">
+          <h6 class="text-uppercase small fw-semibold" style="letter-spacing:.1em;color:#5eead4"><i class="bi bi-telephone me-2"></i>Crisis Helplines</h6>
+          <ul class="list-clean mt-3" style="color:#cbd5e1">
+            <li><i class="bi bi-arrow-right" style="color:#5eead4"></i><span>United States · 988 (Suicide &amp; Crisis Lifeline)</span></li>
+            <li><i class="bi bi-arrow-right" style="color:#5eead4"></i><span>United Kingdom · Samaritans 116 123</span></li>
+            <li><i class="bi bi-arrow-right" style="color:#5eead4"></i><span>India · iCall 9152987821</span></li>
+            <li><i class="bi bi-arrow-right" style="color:#5eead4"></i><span>Australia · Lifeline 13 11 14</span></li>
+          </ul>
+        </div>
+        <div class="card-clean mt-4 reveal reveal-delay-1">
+          <h6 class="text-uppercase small fw-semibold" style="letter-spacing:.1em;color:var(--muted)">Try Asking</h6>
+          <div class="d-flex flex-wrap mt-2" id="suggestions"></div>
+        </div>
+        <div class="card-clean mt-4 reveal reveal-delay-2">
+          <h6 class="text-uppercase small fw-semibold" style="letter-spacing:.1em;color:var(--muted)">Privacy</h6>
+          <p class="text-muted small mt-2 mb-0">Messages are processed in-memory for the duration of the response only. Nothing is logged, stored, or shared with any third party.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--line-soft)">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6 reveal">
+        <span class="eyebrow">How It Answers</span>
+        <h2 class="section-title">Retrieval grounds every response.</h2>
+        <p class="text-muted mt-3">Your message is converted to an embedding vector and compared against an index of pre-embedded passages from the curated knowledge base. The three most relevant passages are returned as supporting context and shown alongside the answer.</p>
+      </div>
+      <div class="col-lg-6 reveal reveal-delay-1">
+        <span class="eyebrow">When It Steps Aside</span>
+        <h2 class="section-title">Acute distress bypasses the model.</h2>
+        <p class="text-muted mt-3">A deterministic keyword filter scans every incoming message before reaching the retrieval or generation layer. When phrases indicating acute distress are present, the message is routed directly to vetted helpline information — the model is never consulted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
+<script>
+const log = document.getElementById("log");
+const SUGGESTIONS = ["How do I manage anxiety?", "What is the 4-7-8 breathing technique?", "How do I improve my sleep?", "What helps with burnout?"];
+
+document.getElementById("suggestions").innerHTML = SUGGESTIONS.map(s =>
+  `<span class="chip" onclick="ask(this.textContent)">${s}</span>`).join("");
+
+function addMsg(text, who, sources) {
+  const m = document.createElement("div");
+  m.className = "msg " + who;
+  m.textContent = text;
+  if (sources?.length) {
+    const s = document.createElement("div");
+    s.className = "sources";
+    s.innerHTML = `<i class="bi bi-bookmark me-1"></i>Sources: ` +
+      sources.map((x,i) => `<span title="${x.text.replace(/"/g,"&quot;")}">[${i+1}]</span>`).join(" ");
+    m.appendChild(s);
+  }
+  log.appendChild(m); log.scrollTop = log.scrollHeight;
+  return m;
+}
+
+function ask(text) {
+  const input = document.getElementById("msg");
+  input.value = text; input.focus();
+  document.getElementById("chatForm").requestSubmit();
+}
+
+document.getElementById("chatForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const input = document.getElementById("msg");
+  const msg = input.value.trim();
+  if (!msg) return;
+  addMsg(msg, "user");
+  input.value = ""; input.disabled = true;
+  const pending = addMsg("…", "bot");
+  try {
+    const r = await postJSON("/api/chat", { message: msg });
+    pending.remove();
+    if (r.error) addMsg(r.error, "bot");
+    else addMsg(r.answer, "bot", r.sources);
+  } catch (err) { pending.textContent = "Error: " + err.message; }
+  finally { input.disabled = false; input.focus(); }
+});
+</script>
+</body>
+</html>

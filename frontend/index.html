@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MediAI — Integrated Healthcare Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-xl-8">
+        <div class="badge-row reveal in">
+          <span class="brand-dot" style="background:#5eead4"></span>
+          AI Diagnostics <span class="divider-dot"></span> Mental Wellness <span class="divider-dot"></span> Lifestyle Intelligence
+        </div>
+        <h1 class="reveal">Healthcare intelligence,<br>built on transparency.</h1>
+        <p class="lead reveal reveal-delay-1">MediAI consolidates five focused machine-learning services — from haematology to mental wellness — into a single, research-grade platform. Open methodology. No black boxes. Designed to inform, never to replace clinical judgment.</p>
+        <div class="d-flex flex-wrap gap-2 mt-4 reveal reveal-delay-2">
+          <a href="/services.html" class="btn btn-accent">Explore Services <i class="bi bi-arrow-right ms-1"></i></a>
+          <a href="/about.html" class="btn btn-ghost-light">Read the Approach</a>
+        </div>
+        <div class="d-flex flex-wrap gap-4 mt-5 reveal reveal-delay-3" style="color:#94a3b8;font-size:.85rem">
+          <span><i class="bi bi-shield-check me-2"></i>Privacy-preserving</span>
+          <span><i class="bi bi-braces me-2"></i>Open methodology</span>
+          <span><i class="bi bi-cpu me-2"></i>Five ML models</span>
+          <span><i class="bi bi-lightning-charge me-2"></i>Sub-second inference</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stat-strip">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-md-3 col-6 reveal"><div class="stat-value">5</div><div class="stat-label">AI MODULES</div></div>
+      <div class="col-md-3 col-6 reveal reveal-delay-1"><div class="stat-value">96.8%</div><div class="stat-label">PEAK SAVED TEST ACCURACY</div></div>
+      <div class="col-md-3 col-6 reveal reveal-delay-2"><div class="stat-value">&lt; 1s</div><div class="stat-label">MEAN RESPONSE TIME</div></div>
+      <div class="col-md-3 col-6 reveal reveal-delay-3"><div class="stat-value">0</div><div class="stat-label">DATA RETAINED</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8 reveal">
+        <span class="eyebrow">The Platform</span>
+        <h2 class="section-title mx-auto">A single interface for five focused healthcare AI tools.</h2>
+        <p class="section-sub mx-auto mt-3">Each module is a self-contained research artefact — exploratory data analysis, model benchmarking, and deployment, fully reproducible from a public dataset. Together they cover the most common day-to-day questions a curious patient might have.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALTERNATING SERVICE ROWS -->
+<div id="services">
+  <!-- 1. Blood -->
+  <section class="service-row">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 reveal">
+          <div class="service-visual">
+            <span class="service-tag">RANDOM FOREST</span>
+            <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=1200&q=80" alt="Laboratory">
+          </div>
+        </div>
+        <div class="col-lg-6 reveal reveal-delay-1">
+          <div class="service-num">01 / SERVICE</div>
+          <h2 class="section-title">Blood Report Analyser</h2>
+          <p class="text-muted mt-3">Enter the nine standard Complete Blood Count values from a routine pathology report and receive an immediate, calibrated estimate of the most probable haematological category — Normal, Anemia, Infection, Leukopenia, or Thrombocytopenia. Each prediction is paired with class probabilities, an explanatory note, and an evidence-aligned dietary suggestion.</p>
+          <ul class="list-clean mt-4">
+            <li><i class="bi bi-check2"></i><span>Trained on a public CBC dataset of multi-class haematological labels.</span></li>
+            <li><i class="bi bi-check2"></i><span>Ensemble tree model benchmarked against five alternatives.</span></li>
+            <li><i class="bi bi-check2"></i><span>Returns full probability distribution, not just a top guess.</span></li>
+          </ul>
+          <a href="/blood.html" class="btn btn-ink mt-4">Open Analyser <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Symptom -->
+  <section class="service-row" style="background:var(--line-soft)">
+    <div class="container">
+      <div class="row align-items-center g-5 flex-lg-row-reverse">
+        <div class="col-lg-6 reveal">
+          <div class="service-visual">
+            <span class="service-tag">MULTI-CLASS RF</span>
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80" alt="Clinical examination">
+          </div>
+        </div>
+        <div class="col-lg-6 reveal reveal-delay-1">
+          <div class="service-num">02 / SERVICE</div>
+          <h2 class="section-title">Symptom Checker</h2>
+          <p class="text-muted mt-3">Select the symptoms you're experiencing from a curated medical vocabulary. The model returns the three most probable conditions ranked by confidence, accompanied by widely accepted over-the-counter management options and dietary guidance from primary-care literature.</p>
+          <ul class="list-clean mt-4">
+            <li><i class="bi bi-check2"></i><span>Fifteen target conditions spanning respiratory, gastrointestinal, metabolic, urinary, allergic, musculoskeletal, and anxiety presentations.</span></li>
+            <li><i class="bi bi-check2"></i><span>Top-3 ranking reflects the inherent uncertainty of differential diagnosis.</span></li>
+            <li><i class="bi bi-check2"></i><span>Conservative, broadly applicable recommendations — never prescriptive.</span></li>
+          </ul>
+          <a href="/symptom.html" class="btn btn-ink mt-4">Check Symptoms <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Image -->
+  <section class="service-row">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 reveal">
+          <div class="service-visual">
+            <span class="service-tag">CNN · TRANSFER LEARNING</span>
+            <img src="https://images.unsplash.com/photo-1583912267550-d6c2ac3196c0?auto=format&fit=crop&w=1200&q=80" alt="Medical imaging">
+          </div>
+        </div>
+        <div class="col-lg-6 reveal reveal-delay-1">
+          <div class="service-num">03 / SERVICE</div>
+          <h2 class="section-title">Image Diagnosis</h2>
+          <p class="text-muted mt-3">Upload a chest radiograph or a dermatological photograph. A Convolutional Neural Network — fine-tuned from a MobileNetV2 backbone pretrained on ImageNet — returns the predicted class and a complete softmax distribution. The pipeline reproduces standard practice in published medical-imaging research.</p>
+          <ul class="list-clean mt-4">
+            <li><i class="bi bi-check2"></i><span>Chest X-ray classifier targeting pneumonia screening.</span></li>
+            <li><i class="bi bi-check2"></i><span>Skin lesion classifier across five common dermatological categories.</span></li>
+            <li><i class="bi bi-check2"></i><span>Two-phase training: frozen head, then partial fine-tuning.</span></li>
+          </ul>
+          <a href="/image.html" class="btn btn-ink mt-4">Run Diagnosis <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Mental Health -->
+  <section class="service-row" style="background:var(--line-soft)">
+    <div class="container">
+      <div class="row align-items-center g-5 flex-lg-row-reverse">
+        <div class="col-lg-6 reveal">
+          <div class="service-visual">
+            <span class="service-tag">RAG · FAISS</span>
+            <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1200&q=80" alt="Calm contemplation">
+          </div>
+        </div>
+        <div class="col-lg-6 reveal reveal-delay-1">
+          <div class="service-num">04 / SERVICE</div>
+          <h2 class="section-title">Mental Health Support</h2>
+          <p class="text-muted mt-3">A Retrieval-Augmented Generation chatbot grounded in curated NIMH and WHO mental-health references. Sentence-level embeddings retrieve the most relevant passages; a compact language model composes a grounded answer. A crisis-keyword interception layer routes acute queries directly to professional helplines.</p>
+          <ul class="list-clean mt-4">
+            <li><i class="bi bi-check2"></i><span>Every answer carries source citations from the underlying knowledge base.</span></li>
+            <li><i class="bi bi-check2"></i><span>Deterministic safety layer for crisis interception — never overridden by the model.</span></li>
+            <li><i class="bi bi-check2"></i><span>Falls back to extractive retrieval when the generative model is unavailable.</span></li>
+          </ul>
+          <a href="/chat.html" class="btn btn-ink mt-4">Open Chat <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Lifestyle -->
+  <section class="service-row">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 reveal">
+          <div class="service-visual">
+            <span class="service-tag">GRADIENT BOOSTING</span>
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80" alt="Active lifestyle">
+          </div>
+        </div>
+        <div class="col-lg-6 reveal reveal-delay-1">
+          <div class="service-num">05 / SERVICE</div>
+          <h2 class="section-title">Lifestyle Planner</h2>
+          <p class="text-muted mt-3">Combines a tuned calorie/protein regressor with a planning engine for meals, macros, workouts, steps, hydration, habits, and a four-week schedule. Add your goal, diet pattern, equipment, stress, sleep, and time constraints to generate a realistic lifestyle plan.</p>
+          <ul class="list-clean mt-4">
+            <li><i class="bi bi-check2"></i><span>Five goal modes including fat loss, maintenance, muscle gain, recomposition, and fitness.</span></li>
+            <li><i class="bi bi-check2"></i><span>Workout schedule adapts to equipment, experience, available time, sleep, and stress.</span></li>
+            <li><i class="bi bi-check2"></i><span>Outputs nutrition targets, grocery map, monthly progression, and safety flags.</span></li>
+          </ul>
+          <a href="/lifestyle.html" class="btn btn-ink mt-4">Build My Plan <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- VALUES -->
+<section class="section bg-ink">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8 reveal">
+        <span class="eyebrow on-dark">Principles</span>
+        <h2 style="color:#f8fafc" class="section-title mx-auto">Engineering for trust.</h2>
+        <p class="mx-auto mt-3" style="color:#94a3b8;max-width:600px">Every architectural decision is justified, documented, and reversible. The platform's value is not in any single prediction but in the legibility of how it reaches them.</p>
+      </div>
+    </div>
+    <div class="row g-4 mt-5">
+      <div class="col-md-6 col-lg-3 reveal"><div class="card-clean" style="background:#1e293b;border-color:#334155">
+        <div class="icon-square dark mb-3"><i class="bi bi-eye"></i></div>
+        <h5 style="color:#f8fafc">Transparency</h5><p class="small mb-0" style="color:#94a3b8">Every model exposes its full probability distribution and underlying methodology.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-3 reveal reveal-delay-1"><div class="card-clean" style="background:#1e293b;border-color:#334155">
+        <div class="icon-square dark mb-3"><i class="bi bi-shield-lock"></i></div>
+        <h5 style="color:#f8fafc">Privacy</h5><p class="small mb-0" style="color:#94a3b8">No user account, no persistent storage, no third-party telemetry, no tracking.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-3 reveal reveal-delay-2"><div class="card-clean" style="background:#1e293b;border-color:#334155">
+        <div class="icon-square dark mb-3"><i class="bi bi-shield-exclamation"></i></div>
+        <h5 style="color:#f8fafc">Safety</h5><p class="small mb-0" style="color:#94a3b8">Deterministic interception of distress signals routes acute queries to vetted helplines.</p>
+      </div></div>
+      <div class="col-md-6 col-lg-3 reveal reveal-delay-3"><div class="card-clean" style="background:#1e293b;border-color:#334155">
+        <div class="icon-square dark mb-3"><i class="bi bi-arrow-repeat"></i></div>
+        <h5 style="color:#f8fafc">Reproducibility</h5><p class="small mb-0" style="color:#94a3b8">A single command rebuilds every model artefact from documented public datasets.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-7 reveal">
+        <span class="eyebrow">Workflow</span>
+        <h2 class="section-title mx-auto">From input to insight in three deliberate steps.</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="card-clean h-100">
+          <div class="service-num mb-2">STEP 01</div>
+          <h4>Choose your service</h4>
+          <p class="text-muted small mb-0">Select from five purpose-built modules, each addressing a distinct clinical or wellness question with its own dedicated model and interface.</p>
+        </div>
+      </div>
+      <div class="col-md-4 reveal reveal-delay-1">
+        <div class="card-clean h-100">
+          <div class="service-num mb-2">STEP 02</div>
+          <h4>Provide your data</h4>
+          <p class="text-muted small mb-0">Type numerical values, select symptoms, upload a medical image, or ask a question. Inputs are processed in-memory and never persisted.</p>
+        </div>
+      </div>
+      <div class="col-md-4 reveal reveal-delay-2">
+        <div class="card-clean h-100">
+          <div class="service-num mb-2">STEP 03</div>
+          <h4>Receive grounded output</h4>
+          <p class="text-muted small mb-0">Each response includes model confidence, supporting context, and a clear disclaimer reminding you to consult a clinician for real decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="section-sm" style="background:var(--line-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-9 reveal">
+        <i class="bi bi-quote" style="font-size:2.5rem;color:var(--accent);opacity:.6"></i>
+        <p class="mt-3" style="font-size:1.4rem;font-weight:500;line-height:1.5;color:var(--ink);letter-spacing:-.015em">
+          The goal of medical AI is not to replace the clinician but to compress the time between curiosity and informed action — making preliminary understanding accessible without trivialising the complexity that follows.
+        </p>
+        <p class="text-muted small mt-3">— Project authors, technical introduction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container text-center">
+    <div class="reveal">
+      <h2 class="section-title mx-auto">Ready to explore?</h2>
+      <p class="section-sub mx-auto mt-3">Every service runs locally. No account, no setup, no cost. Pick one to begin.</p>
+      <div class="d-flex justify-content-center gap-2 mt-4">
+        <a href="/services.html" class="btn btn-accent">Browse Services <i class="bi bi-arrow-right ms-1"></i></a>
+        <a href="/about.html" class="btn btn-ghost">Read About</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
+</body>
+</html>

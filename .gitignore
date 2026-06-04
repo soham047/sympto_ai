@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+data/*/
+!data/.gitkeep
+models/*.pkl
+models/*.h5
+models/*.index
+models/*.faiss
+models/faiss_store/
+.ipynb_checkpoints/
+*.log

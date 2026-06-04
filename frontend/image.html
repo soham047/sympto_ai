@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Image Diagnosis · MediAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow on-dark reveal in">Service 03 · CNN with Transfer Learning</span>
+    <h1 class="reveal in">Image Diagnosis</h1>
+    <p class="reveal in">Submit a chest radiograph or a dermatological photograph. A Convolutional Neural Network fine-tuned from a MobileNetV2 backbone returns the predicted class and a full softmax distribution.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-7 reveal">
+        <div class="card-clean">
+          <span class="eyebrow">Input</span>
+          <h3 class="mt-1">Upload an image.</h3>
+          <p class="text-muted small mb-4">Select the model type appropriate for your image, then choose a file from your device.</p>
+          <form id="imgForm">
+            <div class="mb-4"><label class="form-label">Model</label>
+              <select class="form-select" name="kind">
+                <option value="xray">Chest X-Ray (Normal · Pneumonia)</option>
+                <option value="skin">Skin Lesion (5 classes)</option>
+              </select></div>
+            <div class="mb-4"><label class="form-label">Image File</label>
+              <input class="form-control" type="file" name="image" id="imgInput" accept="image/*" required></div>
+            <div id="preview" class="mb-4 d-none">
+              <div class="service-visual" style="aspect-ratio:auto;max-height:340px"><img id="previewImg" alt="Preview" style="filter:none"></div>
+            </div>
+            <button class="btn btn-accent">Run Inference <i class="bi bi-arrow-right ms-1"></i></button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-5 reveal reveal-delay-1">
+        <div id="result" class="result-card d-none"></div>
+        <div class="card-clean mt-4">
+          <h6 class="text-uppercase small fw-semibold" style="letter-spacing:.1em;color:var(--muted)">Architecture</h6>
+          <p class="text-muted small mt-2 mb-3">MobileNetV2 backbone pretrained on ImageNet, followed by global average pooling, dropout regularisation, and a softmax classification head. Two-phase training: frozen backbone, then partial unfreezing for fine-tuning.</p>
+          <ul class="list-clean">
+            <li><i class="bi bi-check2"></i><span>X-ray: binary classification trained on chest radiographs.</span></li>
+            <li><i class="bi bi-check2"></i><span>Skin: five-class lesion identification.</span></li>
+            <li><i class="bi bi-check2"></i><span>Inputs resized and normalised; augmentation at training only.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--line-soft)">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4 reveal"><h5>Image Quality Matters</h5><p class="text-muted small">Models trained on clean datasets degrade rapidly on out-of-distribution inputs. Use clear, well-lit, properly oriented images for best results.</p></div>
+      <div class="col-md-4 reveal reveal-delay-1"><h5>Transfer Learning</h5><p class="text-muted small">Starting from ImageNet-pretrained weights enables strong performance even with modest medical datasets — the lower layers detect edges and textures common to all imagery.</p></div>
+      <div class="col-md-4 reveal reveal-delay-2"><h5>Not Diagnostic</h5><p class="text-muted small">A CNN classification is a statistical guess, not a diagnosis. Any clinically concerning image must be reviewed by a qualified radiologist or dermatologist.</p></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
+<script>
+document.getElementById("imgInput").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  document.getElementById("preview").classList.remove("d-none");
+  document.getElementById("previewImg").src = URL.createObjectURL(f);
+});
+
+document.getElementById("imgForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const out = document.getElementById("result");
+  const fd = new FormData(e.target);
+  const kind = fd.get("kind");
+  const upload = new FormData(); upload.append("image", fd.get("image"));
+  showLoading(out, "Running inference");
+  try {
+    const r = await fetch(`/api/image/${kind}`, { method:"POST", body: upload }).then(x => x.json());
+    if (r.error) return showError(out, r.error);
+    renderResult(out, `
+      <span class="eyebrow">Prediction</span>
+      <h2 class="mt-1 mb-1">${r.prediction}</h2>
+      <p class="text-muted small">Top-1 confidence ${(r.confidence*100).toFixed(1)}%</p>
+      <hr class="my-4">
+      <h6 class="text-uppercase small fw-semibold mb-3" style="letter-spacing:.1em;color:var(--muted)">Class Probabilities</h6>
+      ${probabilityBars(r.probabilities)}
+    `);
+  } catch (err) { showError(out, err.message); }
+});
+</script>
+</body>
+</html>
