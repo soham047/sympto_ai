@@ -10,3 +10,4 @@ models/*.faiss
 models/faiss_store/
 .ipynb_checkpoints/
 *.log
+.env

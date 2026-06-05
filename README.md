@@ -9,7 +9,7 @@ A student-level integrated platform with 5 healthcare AI features behind a singl
 | 1 | **Blood Report Analyzer** | Tuned CBC classifier from `data/blood_report_dataset.xlsx` | scikit-learn |
 | 2 | **Symptom Checker** | Tuned symptom classifier from `data/symptom_checker_dataset.xlsx` | scikit-learn |
 | 3 | **Image Diagnosis** | CNN from scratch + MobileNetV2 fine-tune (X-ray & Skin) | TensorFlow/Keras |
-| 4 | **Mental Health Chatbot** | RAG (FAISS + sentence-transformers + flan-t5) | LangChain-style pipeline |
+| 4 | **Mental Health Chatbot** | Groq chat completion + quiet RAG (FAISS + sentence-transformers/TF-IDF) | Fast grounded chatbot |
 | 5 | **Lifestyle Planner** | Tuned calorie/protein regression + planning engine | scikit-learn |
 
 ## Project structure
@@ -50,8 +50,10 @@ python backend/app.py
 ### Partial install (sklearn-only)
 If you only have scikit-learn + Flask installed, `train_all.py` will train the 3 tabular models and skip the CNN/RAG steps gracefully. The corresponding API endpoints return a clear `503` with instructions when called.
 
-### RAG backend modes
-`scripts/build_rag.py` tries `sentence-transformers/all-MiniLM-L6-v2` (semantic) and falls back to TF-IDF embeddings if that fails or isn't installed. Either way it produces a FAISS index the chat route reads. For best quality, install sentence-transformers and re-run the script.
+### Mental-health chatbot
+Set `GROQ_API_KEY` in your environment before running the Flask app. The chat route uses Groq for fast natural replies and uses the FAISS retrieval store only as hidden context, so user-facing answers do not include file names, line numbers, or citations.
+
+`scripts/build_rag.py` ingests `docs/*.md`, `docs/*.txt`, and `docs/*.pdf`, then tries `sentence-transformers/all-MiniLM-L6-v2` and falls back to TF-IDF embeddings if that fails or isn't installed. Either way it produces the FAISS index the chat route reads.
 
 ## Datasets
 
@@ -68,7 +70,7 @@ Additional optional datasets for the image/lifestyle modules:
 |---------|---------|------|
 | X-ray | Pneumonia Chest X-Ray | Kaggle: `paultimothymooney/chest-xray-pneumonia` |
 | Skin | HAM10000 | Kaggle: `kmader/skin-cancer-mnist-ham10000` |
-| Mental Health RAG | NIMH/WHO fact sheets | Free PDFs at nimh.nih.gov / who.int |
+| Mental Health RAG | NIMH/WHO fact sheets | Free PDFs at nimh.nih.gov / who.int; place PDFs inside `docs/` |
 | Lifestyle | Optional fitness / calories references | Kaggle: `fmendes/fmendesdat263xdemos` |
 
 Place downloaded optional data inside `data/<feature>/` and rerun the notebook for that feature.

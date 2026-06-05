@@ -51,7 +51,7 @@
             <tr><td class="ps-4 py-3 fw-semibold">Blood Analyser</td><td>Multi-class classification</td><td>Random Forest</td><td>CBC values</td><td class="pe-4">Class + probability + diet</td></tr>
             <tr><td class="ps-4 py-3 fw-semibold">Symptom Checker</td><td>Multi-class top-K</td><td>Random Forest</td><td>Symptom-disease mapping</td><td class="pe-4">Top-3 conditions + plan</td></tr>
             <tr><td class="ps-4 py-3 fw-semibold">Image Diagnosis</td><td>Image classification</td><td>CNN + MobileNetV2</td><td>Chest X-ray, HAM10000</td><td class="pe-4">Class + softmax</td></tr>
-            <tr><td class="ps-4 py-3 fw-semibold">Mental Health Chat</td><td>Question answering</td><td>RAG · FAISS · flan-t5</td><td>NIMH / WHO references</td><td class="pe-4">Grounded answer + sources</td></tr>
+            <tr><td class="ps-4 py-3 fw-semibold">Mental Health Chat</td><td>Question answering</td><td>Groq · RAG · FAISS</td><td>NIMH / WHO / PDF references</td><td class="pe-4">Natural supportive answer</td></tr>
             <tr><td class="ps-4 py-3 fw-semibold">Lifestyle Planner</td><td>Regression + planning</td><td>Tuned Gradient Boosting</td><td>Guideline-based lifestyle cohort</td><td class="pe-4">Calories, macros, workouts, meals, month plan</td></tr>
           </tbody>
         </table>
@@ -95,7 +95,7 @@ const SERVICES = [
   { n:"01", i:"bi-droplet",          t:"Blood Report Analyser",  d:"Predict probable haematological categories from CBC values with probability calibration and aligned dietary suggestions.", h:"/blood.html",     tag:"Random Forest" },
   { n:"02", i:"bi-clipboard2-pulse", t:"Symptom Checker",        d:"Convert your symptom selection into a ranked differential of three most probable conditions with management recommendations.", h:"/symptom.html",   tag:"Multi-class RF" },
   { n:"03", i:"bi-image",            t:"Image Diagnosis",        d:"Submit a chest X-ray or skin lesion image — a fine-tuned CNN returns the predicted class with a full probability distribution.", h:"/image.html",     tag:"CNN + Transfer" },
-  { n:"04", i:"bi-chat-square-text", t:"Mental Health Chat",     d:"Ask informational mental-health questions; receive grounded answers cited to vetted NIMH and WHO references.", h:"/chat.html",      tag:"RAG · FAISS" },
+  { n:"04", i:"bi-chat-square-text", t:"Mental Health Chat",     d:"Ask mental-health and wellbeing questions; receive quick, natural answers grounded by vetted references in the background.", h:"/chat.html",      tag:"Groq · RAG" },
   { n:"05", i:"bi-activity",         t:"Lifestyle Planner",      d:"Build a monthly plan with calories, macros, meals, training, steps, hydration, habits, and conservative safety flags from a richer lifestyle profile.", h:"/lifestyle.html", tag:"Planning Engine" },
 ];
 document.getElementById("services").innerHTML = SERVICES.map((s,i) => `
